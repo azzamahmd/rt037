@@ -1,0 +1,126 @@
+{
+  "project_name": "Website Profil RT 037 RW 002 Desa X",
+  "theme": "Light",
+  "archetype": "1 (Organic & Earthy)",
+  "design_concept": "Heritage Modern & Warm Civic - A design that blends modern editorial layouts with subtle Indonesian cultural heritage (batik textures, earthy tones). It focuses on community warmth, trust, and clear communication without feeling like a generic corporate template.",
+  "typography": {
+    "primary_heading_font": "Cormorant Garamond",
+    "secondary_body_font": "Manrope",
+    "font_setup_instructions": "Import 'Cormorant Garamond' (weights 400, 600, 700) and 'Manrope' (weights 400, 500, 600) from Google Fonts.",
+    "hierarchy": {
+      "h1": "font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 leading-tight",
+      "h2": "font-serif text-3xl sm:text-4xl text-neutral-800 leading-snug",
+      "h3": "font-serif text-2xl sm:text-3xl text-neutral-800",
+      "body": "font-sans text-base sm:text-lg text-neutral-600 leading-relaxed",
+      "overline": "font-sans text-xs uppercase tracking-[0.2em] font-semibold text-primary-600"
+    }
+  },
+  "colors": {
+    "background": {
+      "base": "#FDFBF7",
+      "surface": "#FFFFFF",
+      "alt": "#F4F1EB"
+    },
+    "text": {
+      "primary": "#1A1C18",
+      "secondary": "#4A4D48",
+      "muted": "#757873"
+    },
+    "brand": {
+      "primary": "#2D4A3E",
+      "primary_hover": "#21382E",
+      "accent": "#C05638",
+      "accent_hover": "#A3472C",
+      "border": "#E5E1D8"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 sm:py-24 lg:py-32",
+    "grid_gap": "gap-8 lg:gap-12",
+    "border_radius": "rounded-2xl",
+    "surface_treatment": "Avoid heavy drop shadows. Use 1px borders (border-border) with very subtle ambient shadows (shadow-sm) to keep the aesthetic clean, flat, and editorial."
+  },
+  "visual_enhancers": {
+    "textures": "Use the provided Batik pattern image as a very low opacity (3-5%) background wash on the Hero section and Footer to give a subtle Indonesian cultural context. Apply using CSS background-image with background-repeat and mix-blend-multiply.",
+    "icons": "Use 'lucide-react' for all icons. Keep icon stroke-width to 1.5 for an elegant look."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#2D4A3E] text-white hover:bg-[#21382E] rounded-full px-8 py-3 transition-colors font-medium text-sm tracking-wide",
+      "secondary": "bg-transparent text-[#2D4A3E] border border-[#2D4A3E] hover:bg-[#2D4A3E]/5 rounded-full px-8 py-3 transition-colors font-medium text-sm tracking-wide"
+    },
+    "cards": {
+      "base": "bg-white rounded-2xl border border-[#E5E1D8] p-6 sm:p-8 hover:-translate-y-1 transition-transform duration-300"
+    },
+    "shadcn_overrides": "When using Shadcn UI for forms (Input, Textarea, Select), override the default border radii to 'rounded-xl' and focus rings to use the primary green (#2D4A3E). Do not use the default Vercel-like aesthetics."
+  },
+  "pages_and_sections": [
+    {
+      "name": "Hero Section",
+      "layout": "Split editorial layout. Left side: Warm, welcoming typography (H1) and a primary CTA. Right side: Large featured image of the community, framed with rounded-3xl corners. Background includes the subtle batik texture wash."
+    },
+    {
+      "name": "Profil RT (Visi & Misi, Sejarah)",
+      "layout": "Bento-style grid. A large span-2 card for Visi (Vision) using large serif typography. Smaller adjacent cards for Misi (Mission list) and a brief Sejarah (History) snippet. Generous internal padding (p-8 or p-10)."
+    },
+    {
+      "name": "Statistik Warga",
+      "layout": "4-column grid displaying key metrics (Jumlah KK, Total Jiwa, Laki-laki, Perempuan). Big numbers in Serif font, subtle Lucide icons above each metric."
+    },
+    {
+      "name": "Struktur Pengurus",
+      "layout": "Grid of profile cards. Each card contains a placeholder avatar (or empty state with initials), Name, and Role (Ketua RT, Sekretaris, etc.). Minimalist layout with center alignment inside the cards."
+    },
+    {
+      "name": "Galeri & Berita",
+      "layout": "Masonry or asymmetrical grid showing local activities. Use the neighborhood activity images here. Hovering over images should slightly scale them up (group-hover:scale-105)."
+    },
+    {
+      "name": "Kontak & Pengaduan Warga",
+      "layout": "Two-column section. Left: Contact info, WhatsApp link, and physical address. Right: A Shadcn-based form for 'Saran & Pengaduan' (Name, Subject, Message)."
+    },
+    {
+      "name": "Footer",
+      "layout": "Deep green background (#2D4A3E) with off-white text. Batik texture overlay at 5% opacity. Contains quick links, copyright, and RT logo/text."
+    }
+  ],
+  "media": {
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1722252799188-87e1db708544?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwxfHxpbmRvbmVzaWFuJTIwbmVpZ2hib3Job29kJTIwYWN0aXZpdGllc3xlbnwwfHx8fDE3ODExMDQzNTR8MA&ixlib=rb-4.1.0&q=85",
+        "category": "hero",
+        "description": "A group of Indonesian people sitting and smiling, exuding a warm community vibe. Use for the main Hero section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1761517099330-13b34b141d74?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwxfHxiYXRpayUyMHBhdHRlcm4lMjB0ZXh0dXJlJTIwc3VidGxlfGVufDB8fHx8MTc4MTEwNDM1NHww&ixlib=rb-4.1.0&q=85",
+        "category": "texture_background",
+        "description": "Traditional batik pattern. MUST be used as a CSS background-image with opacity around 3-5% (mix-blend-multiply) to add subtle cultural texture to the background of the Hero or Footer."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1769399915424-5fbd9d22b36f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwyfHxpbmRvbmVzaWFuJTIwbmVpZ2hib3Job29kJTIwYWN0aXZpdGllc3xlbnwwfHx8fDE3ODExMDQzNTR8MA&ixlib=rb-4.1.0&q=85",
+        "category": "gallery",
+        "description": "People on bicycles in a village setting. Use in the Galeri / Berita section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1542897643-cfccd88c7127?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxpbmRvbmVzaWFuJTIwdmlsbGFnZSUyMGNvbW11bml0eSUyMHBlb3BsZXxlbnwwfHx8fDE3ODExMDQzNTR8MA&ixlib=rb-4.1.0&q=85",
+        "category": "gallery",
+        "description": "Community parade/gathering. Use in the Galeri / Berita section to show active resident engagement."
+      }
+    ]
+  },
+  "accessibility_and_interactions": {
+    "testing": "All interactive elements, buttons, form inputs, and key sections MUST include a 'data-testid' attribute (e.g., data-testid='hero-cta-button', data-testid='contact-form-submit').",
+    "focus_states": "Ensure all focusable elements have an explicit focus state: 'focus:outline-none focus:ring-2 focus:ring-[#2D4A3E] focus:ring-offset-2'.",
+    "motion": "Use Framer Motion for subtle fade-up entrance animations on scroll. Keep it professional; do not over-animate."
+  },
+  "instructions_to_main_agent": [
+    "DO NOT use generic purple or teal gradients. Strictly adhere to the organic, earthy color palette (Deep Greens, Warm Sands, Terracotta).",
+    "Use .js / .jsx files for React components, NOT .tsx.",
+    "Implement the 'Cormorant Garamond' and 'Manrope' fonts globally via Tailwind config and CSS imports.",
+    "Apply the Batik texture subtly. It should feel like a high-end watermark, not a distracting background. If unsure, apply it only to the Footer.",
+    "Ensure all sections have generous vertical spacing (py-24) to maintain the modern editorial look.",
+    "Use standard HTML tags structured with Tailwind for the complex asymmetrical layouts, and reserve Shadcn UI components for the interactive forms (Input, Textarea, Button).",
+    "Ensure the application is mobile-responsive out of the box."
+  ]
+}

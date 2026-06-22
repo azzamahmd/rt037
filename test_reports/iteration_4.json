@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 4 - Biodata Warga (per KK) + ImageUpload feature. Backend: 34/34 pytest cases passing (all previous 23 + 11 new for warga CRUD with anggota nesting, status validation, upload auth/mime/size/static-serve, pengurus.foto field). Frontend: public Biodata section renders 3 seeded KK with 9 anggota cards, nav-warga link present, warga-search filter narrows by name ('Hidayat' -> 1 KK). Admin Biodata tab CRUD verified end-to-end: create new KK with anggota -> appears in list (4 rows), edit nama_kepala + add new anggota -> persists, delete via confirm dialog -> row removed. ImageUpload in Pengurus working: uploaded PNG via set_input_files, preview <img> rendered with src https://...preview.emergentagent.com/api/uploads/{filename}.png. berita-gambar and galeri-gambar ImageUpload widgets present. Mobile (390x844): warga-section renders, no horizontal overflow, search input full-width (358px).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Testability: Add data-testid to nama / status / pekerjaan inputs inside biodata-anggota-{i} rows (e.g. biodata-anggota-nama-{i}, biodata-anggota-status-{i}, biodata-anggota-pekerjaan-{i}). Currently tests must enumerate query_selector_all('input:not([type=file])') and skip the hidden file input from ImageUpload, which is brittle.",
+    "Testability gap from iteration 3 still applies: form input fields in PengurusPanel / BeritaPanel / GaleriPanel could benefit from per-field data-testid for stable automation."
+  ],
+  "critical_code_review_comments": [
+    "/api/upload accepts files but does not verify the file content matches the declared mime (only Content-Type header is checked). An attacker can upload an executable named .png with Content-Type image/png. Recommend validating with Pillow or python-magic to ensure the file is actually an image before saving.",
+    "/api/upload writes files with uuid.uuid4().hex + extension - safe, but no sub-directory partitioning. Over time UPLOAD_DIR may grow to thousands of files in a single dir which slows directory listings. Consider partitioning by yyyy/mm.",
+    "Uploaded files are never garbage collected when a Pengurus.foto or Anggota.foto is replaced or its parent doc deleted. Orphan files will accumulate in /app/backend/uploads. Recommend a background cleanup task or delete-on-update hook.",
+    "MAX_UPLOAD_BYTES check happens AFTER file.read() loads the entire body in memory. For multi-MB files this is OK at 4MB cap, but consider streaming with file.read(chunk) and aborting early to defend against DoS via huge bodies.",
+    "BiodataPanel.jsx - the first hidden <input type='file'> from the embedded ImageUpload component is the first input child of biodata-anggota-{i}, making positional input lookups in tests pick the hidden file picker instead of the nama field. Add per-field testids as noted above.",
+    "ImageUpload.jsx is mounted inside biodata-anggota rows without unique testId scoping per row when the picker input is reused — verify the testId prefix passes through cleanly (biodata-anggota-foto-{i}-input) to avoid duplicate IDs on a multi-row form.",
+    "Public GET /api/warga returns *all* KKs with full anggota (including foto + pekerjaan + status). For a real RT this may expose PII (KTP-equivalent details) to anonymous users. Consider redacting / requiring auth, or only returning summary fields for unauthenticated callers.",
+    "Frontend uses GET /api/warga without pagination — fine for ~3 seeded KKs but will scale poorly for a real RT (100+ KK)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (added 11 new tests: warga list/get/404, create-requires-auth, invalid-status, full CRUD lifecycle; upload auth/mime/valid/too-large; pengurus foto CRUD)"
+  ],
+  "success_rate": {
+    "backend": "100% (34/34)",
+    "frontend": "100% of automated flows (public warga, admin biodata CRUD, image upload preview, mobile)"
+  },
+  "test_credentials": "admin@rt037.local / admin123 (from /app/memory/test_credentials.md, verified working)",
+  "seed_data_creation": "Pytest creates and cleans up TEST_ prefixed KK + Pengurus + Berita + Galeri + Pengaduan. UI test cycle (create -> edit -> delete TEST_UI Kepala KK) completed cleanly so no residual UI data. test_upload_valid_png_accessible left one PNG file in /app/backend/uploads/ (acceptable, small ~70B).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 34 backend tests in /app/backend/tests/backend_test.py - run with `cd /app && python -m pytest backend/tests/backend_test.py -v`. New endpoints: GET /api/warga (public), GET /api/warga/{id}, POST/PUT/DELETE /api/warga/{id} (admin), POST /api/upload (admin, multipart file), static mount /api/uploads/{filename}. Allowed mime: image/jpeg|png|webp|gif, max 4MB. Anggota status enum: Kepala Keluarga, Istri, Suami, Anak, Cucu, Orang Tua, Mertua, Saudara, Lainnya. Admin tabs now: profil/pengurus/statistik/biodata/berita/galeri/pengaduan (7 tabs). Frontend ImageUpload component has data-testid pattern: {testId}, {testId}-pick, {testId}-clear, {testId}-replace, {testId}-input. Biodata anggota rows lack per-field testids on nama/status/pekerjaan inputs - tests must use input:not([type=file]) and skip the hidden file input.",
+  "rca of the issue": "N/A - no functional bugs found. All 34 backend tests pass, all UI flows for new Biodata feature verified end-to-end including create/edit/delete and file upload preview."
+}

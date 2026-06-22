@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg-base: #FDFBF7;
+    --bg-surface: #FFFFFF;
+    --bg-alt: #F4F1EB;
+    --text-primary: #1A1C18;
+    --text-secondary: #4A4D48;
+    --text-muted: #757873;
+    --brand-primary: #2D4A3E;
+    --brand-primary-hover: #21382E;
+    --brand-accent: #C05638;
+    --brand-accent-hover: #A3472C;
+    --brand-border: #E5E1D8;
+}
+
+@layer base {
+    :root {
+        --background: 44 41% 98%;
+        --foreground: 80 6% 10%;
+        --card: 0 0% 100%;
+        --card-foreground: 80 6% 10%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 80 6% 10%;
+        --primary: 150 24% 23%;
+        --primary-foreground: 44 41% 98%;
+        --secondary: 40 22% 93%;
+        --secondary-foreground: 80 6% 10%;
+        --muted: 40 22% 93%;
+        --muted-foreground: 80 3% 47%;
+        --accent: 17 56% 49%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 40 22% 87%;
+        --input: 40 22% 87%;
+        --ring: 150 24% 23%;
+        --radius: 0.75rem;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-body {
+    font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.batik-overlay {
+    position: relative;
+}
+.batik-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1761517099330-13b34b141d74?crop=entropy&cs=srgb&fm=jpg&w=1200&q=60');
+    background-size: 400px;
+    background-repeat: repeat;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subtle dotted overline */
+.overline-eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    color: var(--brand-primary);
+}
+
+@layer base {
+    * { @apply border-border; }
+    body { @apply bg-background text-foreground; }
+}

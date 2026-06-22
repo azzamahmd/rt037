@@ -1,0 +1,34 @@
+{
+  "summary": "Iteration 3 - auth + admin dashboard + WhatsApp + mobile. Backend: 23/23 pytest cases passing (auth login/me, profil update with whatsapp persistence, full CRUD lifecycles for pengurus/berita/galeri, pengaduan public-create + admin list/status/delete, all admin endpoints correctly return 401 without bearer token). Frontend: home page has no sejarah card, floating WA + Kontak WA buttons present with correct wa.me hrefs, /login flow redirects to /admin, all 6 admin tabs render, Pengurus add works, Statistik save shows toast, Berita add works, Pengaduan status dropdown updates with success toast, logout clears localStorage rt_token and redirects to /login, /admin without token redirects to /login, mobile (390x844) hamburger toggle opens menu, no horizontal overflow, floating WA still visible.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Add data-testid to row-level edit/delete buttons in PengurusPanel/BeritaPanel/GaleriPanel (e.g. pengurus-edit-{id}, pengurus-delete-{id}). Currently only pengurus-row-{id} wrapper has a testid; the action buttons inside are not addressable from tests, blocking automated edit/delete coverage.",
+    "Add data-testid to admin form inputs (pengurus-form-nama/jabatan/inisial/urutan, berita-form-judul/ringkasan/konten/kategori/tanggal/gambar, galeri-form-*). Currently tests have to rely on positional querySelectorAll which is brittle."
+  ],
+  "critical_code_review_comments": [
+    "Row-level action buttons (Edit/Hapus) in PengurusPanel.jsx, BeritaPanel.jsx, GaleriPanel.jsx lack data-testid attributes. Per project testability guidelines, all interactive elements (buttons, links) must have data-testid. Suggest adding `pengurus-edit-{id}` and `pengurus-delete-{id}` on the action <button> elements (and equivalent for berita/galeri).",
+    "Admin form input fields lack data-testid. Tests fall back to positional input[n] selectors which break if column order changes. Add data-testid on each Input/Textarea/Select inside pengurus-form, berita-form, galeri-form.",
+    "Pengaduan delete uses native window.confirm (inferred from page.on('dialog') need). Consider replacing with shadcn AlertDialog for consistency with the rest of the UI and to enable better automated testing.",
+    "ProfilModel uses extra='ignore', so a frontend that still posts legacy 'sejarah' field will silently be dropped — fine for migration but worth a server log warn during transition.",
+    "/api/auth/login does not implement brute-force lockout. Per playbook (auth_testing.md) recommend tracking failed attempts and locking after 5 fails. Currently any number of wrong-password attempts is allowed."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (rewritten to cover auth + admin CRUD + pengaduan lifecycle, removed obsolete sejarah and unauth pengaduan-list assertions)"
+  ],
+  "success_rate": { "backend": "100% (23/23)", "frontend": "100% of automatable flows" },
+  "test_credentials": "admin@rt037.local / admin123 (from /app/memory/test_credentials.md, verified working)",
+  "seed_data_creation": "Created and cleaned up: TEST_UI Pengurus (still present after edit step — see context), TEST_UI Berita (still in DB), TEST_ pengaduan entries from pytest are cleaned up by the lifecycle test. UI test left behind 1 pengurus row (TEST_UI Edited) and 1 berita row (TEST_UI Berita) — main agent may want to clean these from MongoDB or leave for visual verification.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend fully verified via pytest at /app/backend/tests/backend_test.py — run with `cd /app && python -m pytest backend/tests/backend_test.py -v`. Frontend admin uses Bearer token from localStorage key 'rt_token'. All 6 admin tabs have data-testid='admin-tab-{profil|pengurus|statistik|berita|galeri|pengaduan}'. Form-level testids exist (pengurus-form, pengurus-add, pengurus-save) but row-action and input-field testids are missing — see action_items. Pengaduan status select element has data-testid='pengaduan-status-{id}'. Floating WA href format: https://wa.me/{whatsapp}?text=...",
+  "rca of the issue": "N/A - no functional bugs found. Only testability gaps (missing data-testid on row-actions and form inputs) reported as action items."
+}

@@ -1,0 +1,62 @@
+.App {
+    min-height: 100vh;
+    background-color: var(--bg-base);
+}
+
+/* Card hover treatment */
+.heritage-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--brand-border);
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.heritage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(45, 74, 62, 0.15);
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-primary:hover {
+    background-color: var(--brand-primary-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--brand-primary);
+    border: 1px solid var(--brand-primary);
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-secondary:hover {
+    background-color: rgba(45, 74, 62, 0.05);
+}
+
+.gallery-image {
+    overflow: hidden;
+    border-radius: 1rem;
+}
+.gallery-image img {
+    transition: transform 0.6s ease;
+}
+.gallery-image:hover img {
+    transform: scale(1.06);
+}
