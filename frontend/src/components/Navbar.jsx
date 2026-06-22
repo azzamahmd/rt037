@@ -40,9 +40,11 @@ export default function Navbar() {
           data-testid="navbar-logo"
           className="flex items-center gap-2 sm:gap-3"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#2D4A3E] text-white flex items-center justify-center font-serif-display text-base sm:text-lg font-semibold">
-            R
-          </div>
+          <img
+            src="/logo-rt.png"
+            alt="Logo RT 037"
+            className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+          />
           <div className="leading-tight">
             <div className="font-serif-display text-base sm:text-lg text-[#1A1C18]">
               RT 037 / RW 002
