@@ -18,6 +18,7 @@ function formatDate(iso) {
 
 export default function Berita({ items = [] }) {
   const [filter, setFilter] = useState("Semua");
+  const [selectedBerita, setSelectedBerita] = useState(null);
   const filtered =
     filter === "Semua" ? items : items.filter((b) => b.kategori === filter);
 
@@ -67,7 +68,8 @@ export default function Berita({ items = [] }) {
               <article
                 key={b.id}
                 data-testid={`berita-card-${b.id}`}
-                className="heritage-card overflow-hidden flex flex-col group"
+                onClick={() => setSelectedBerita(b)}
+                className="heritage-card overflow-hidden flex flex-col group cursor-pointer"
               >
                 <div className="gallery-image h-48 overflow-hidden">
                   {b.gambar && (
@@ -107,6 +109,46 @@ export default function Berita({ items = [] }) {
           </div>
         )}
       </div>
+      {selectedBerita && (
+        <div
+          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedBerita(null)}
+        >
+          <div
+            className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedBerita.gambar && (
+              <img
+                src={selectedBerita.gambar}
+                alt={selectedBerita.judul}
+                className="w-full h-64 object-cover"
+              />
+            )}
+
+            <div className="p-6">
+              <h2 className="text-2xl font-bold mb-2">
+                {selectedBerita.judul}
+              </h2>
+
+              <p className="text-sm text-gray-500 mb-4">
+                {formatDate(selectedBerita.tanggal)}
+              </p>
+
+              <div className="whitespace-pre-wrap">
+                {selectedBerita.isi || selectedBerita.ringkasan}
+              </div>
+
+              <button
+                onClick={() => setSelectedBerita(null)}
+                className="mt-6 px-4 py-2 bg-[#2D4A3E] text-white rounded"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
