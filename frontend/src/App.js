@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import RequireAuth from "./components/RequireAuth";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Toaster } from "sonner";
+import BeritaDetail from "./pages/BeritaDetail";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/berita/:id" element={<BeritaDetail />} />
             <Route
               path="/admin"
               element={

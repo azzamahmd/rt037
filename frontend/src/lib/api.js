@@ -33,6 +33,7 @@ export const getProfil = () => api.get("/profil").then((r) => r.data);
 export const getPengurus = () => api.get("/pengurus").then((r) => r.data);
 export const getStatistik = () => api.get("/statistik").then((r) => r.data);
 export const getBerita = (params = {}) => api.get("/berita", { params }).then((r) => r.data);
+export const getBeritaDetail = (id) => api.get(`/berita/${id}`).then((r) => r.data);
 export const getGaleri = () => api.get("/galeri").then((r) => r.data);
 export const postPengaduan = (payload) => api.post("/pengaduan", payload).then((r) => r.data);
 
