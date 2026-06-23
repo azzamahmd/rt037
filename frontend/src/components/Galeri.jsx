@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function Galeri({ items = [] }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   return (
     <section
       id="galeri"
@@ -21,7 +25,8 @@ export default function Galeri({ items = [] }) {
             <div
               key={g.id}
               data-testid={`galeri-item-${i}`}
-              className={`gallery-image relative group ${
+              onClick={() => setSelectedImage(g)}
+              className={`gallery-image relative group cursor-pointer ${
                 i % 5 === 0 ? "row-span-2 col-span-2" : ""
               }`}
             >
@@ -41,6 +46,40 @@ export default function Galeri({ items = [] }) {
           ))}
         </div>
       </div>
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="max-w-5xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage.gambar}
+              alt={selectedImage.judul}
+              className="w-full max-h-[80vh] object-contain rounded-xl bg-white"
+            />
+
+            <div className="bg-white p-4 rounded-b-xl">
+              <h3 className="text-xl font-semibold">
+                {selectedImage.judul}
+              </h3>
+
+              <p className="text-gray-600 mt-2">
+                {selectedImage.deskripsi}
+              </p>
+
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="mt-4 px-4 py-2 bg-[#2D4A3E] text-white rounded-lg"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
