@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { resolveImageUrl } from "../lib/api";
 
 export default function Galeri({ items = [] }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -31,7 +32,7 @@ export default function Galeri({ items = [] }) {
               }`}
             >
               <img
-                src={g.gambar}
+                src={resolveImageUrl(g.gambar)}
                 alt={g.judul}
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -56,7 +57,7 @@ export default function Galeri({ items = [] }) {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={selectedImage.gambar}
+              src={resolveImageUrl(selectedImage.gambar)}
               alt={selectedImage.judul}
               className="w-full max-h-[80vh] object-contain rounded-xl bg-white"
             />
