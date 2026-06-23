@@ -1,6 +1,7 @@
 import { Calendar, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { resolveImageUrl } from "../lib/api";
 
 const KATEGORI = ["Semua", "Berita", "Pengumuman", "Kegiatan"];
 
@@ -77,7 +78,7 @@ export default function Berita({ items = [] }) {
                 <div className="gallery-image h-48 overflow-hidden">
                   {b.gambar && (
                     <img
-                      src={b.gambar}
+                      src={resolveImageUrl(b.gambar)}
                       alt={b.judul}
                       className="w-full h-full object-cover"
                       loading="lazy"
